@@ -1,14 +1,32 @@
-import React from 'react';
-import Footer from '../footer/footer';
-import Header from '../header/header';
-import styles from './login.module.css';
+import { getMouseEventOptions } from "@testing-library/user-event/dist/utils";
+import React, { useEffect } from "react";
+import { useNavigate } from "react-router-dom";
+import Footer from "../footer/footer";
+import Header from "../header/header";
+import styles from "./login.module.css";
 
 const Login = ({ authService }) => {
-  const onLogin = event => {
+  const navigate = useNavigate();
+
+  const goToMaker = (userId) => {
+    navigate("/maker", { state: { id: userId } });
+  };
+
+  const onLogin = (event) => {
     authService //
       .login(event.currentTarget.textContent)
-      .then(console.log);
+      .then((result) => {
+        goToMaker(result.user.uid);
+      });
   };
+
+  useEffect(() => {
+    authService //
+      .onAuthChange((user) => {
+        user && goToMaker(user.id);
+      });
+  });
+
   return (
     <section className={styles.login}>
       <Header />
