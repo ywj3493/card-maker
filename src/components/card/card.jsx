@@ -30,7 +30,7 @@ function getStyles(theme) {
     case "colorful":
       return styles.colorful;
     default:
-      throw new Error(`unknown theme: ${theme}`);
+      return styles.dark;
   }
 }
 

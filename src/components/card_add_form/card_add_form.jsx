@@ -19,7 +19,6 @@ const CardAddForm = ({ FileInput, addCard }) => {
   };
 
   const onSubmit = (event) => {
-    console.log(event);
     event.preventDefault();
     const card = {
       id: Date.now(), //uuid

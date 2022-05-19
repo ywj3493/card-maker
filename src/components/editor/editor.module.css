@@ -4,6 +4,7 @@
 .editor {
   flex-basis: 50%;
   text-align: center;
+  overflow-y: auto;
   background-color: beige;
   padding: 0.5em 2em;
   border-right: 1px solid makerLightGrey;
