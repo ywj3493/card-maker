@@ -1,9 +1,9 @@
-import React from "react";
+import React, { memo } from "react";
 import styles from "./card.module.css";
 
 const DEFAULT_IMAGE = "images/default_logo.png";
 
-const Card = ({ card }) => {
+const Card = memo(({ card }) => {
   const { id, name, company, theme, title, email, message, fileName, fileURL } =
     card;
   const url = fileURL || DEFAULT_IMAGE;
@@ -19,7 +19,7 @@ const Card = ({ card }) => {
       </div>
     </li>
   );
-};
+});
 
 function getStyles(theme) {
   switch (theme) {
@@ -30,7 +30,7 @@ function getStyles(theme) {
     case "colorful":
       return styles.colorful;
     default:
-      return styles.dark;
+      throw new Error(`not supported theme: ${theme}`);
   }
 }
 

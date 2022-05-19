@@ -1,5 +1,5 @@
 import firebase from "firebase";
-import React, { useEffect, useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import Editor from "../editor/editor";
 import Footer from "../footer/footer";
@@ -14,9 +14,11 @@ const Maker = ({ FileInput, authService, cardRepository }) => {
   const [cards, setCards] = useState({});
   const [userId, setUserId] = useState(navigateState && navigateState.id);
 
-  const onLogout = () => {
+  //useCallback은 props, state가 변해도 이전 것을 사용한다.
+  //즉 dependency가 있는 경우에는 반드시 넣어줘야 의도대로 동작 할 것
+  const onLogout = useCallback(() => {
     authService.logout();
-  };
+  }, [authService]);
 
   //sync card
   useEffect(() => {
@@ -27,7 +29,7 @@ const Maker = ({ FileInput, authService, cardRepository }) => {
       setCards(cards);
     });
     return () => stopSync();
-  }, [userId]);
+  }, [userId, cardRepository]);
 
   //login logic
   useEffect(() => {
@@ -38,7 +40,7 @@ const Maker = ({ FileInput, authService, cardRepository }) => {
         navigate("/");
       }
     });
-  });
+  }, [authService]);
 
   const createOrUpdateCard = (card) => {
     //진짜 중요, updated 는 이전 state 값인데, 이는 비동기적으로 동작할 수 있다.
