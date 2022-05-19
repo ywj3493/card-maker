@@ -7,7 +7,7 @@ import Header from "../header/header";
 import Preview from "../preview/preview";
 import styles from "./maker.module.css";
 
-const Maker = ({ authService }) => {
+const Maker = ({ FileInput, authService }) => {
   const navigate = useNavigate();
 
   //진짜 중요 객체도 배열처럼 사용 하게 된다면 중간 변경하기 쉽다.
@@ -84,6 +84,7 @@ const Maker = ({ authService }) => {
       <Header onLogout={onLogout} />
       <div className={styles.container}>
         <Editor
+          FileInput={FileInput}
           cards={cards}
           addCard={createOrUpdateCard}
           createOrUpdateCard={createOrUpdateCard}
